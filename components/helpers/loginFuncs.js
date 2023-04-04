@@ -1,8 +1,11 @@
-import { signInWithEmailAndPassword } from "firebase/auth"
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
-import { db } from "../../firebase"
+import { db, auth } from "../../firebase"
 
-export const handleLogin = () => {
+export const handleLogin = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredentials) => {
       const user = userCredentials.user
@@ -11,7 +14,7 @@ export const handleLogin = () => {
     .catch((error) => alert(error.message))
 }
 
-export const handleSignUp = () => {
+export const handleSignUp = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCreds) => {
       const userEmail = userCreds.user.email

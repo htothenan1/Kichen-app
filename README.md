@@ -1,10 +1,14 @@
 # Kichen-app
-An app that allows you to log and track the contents of your home kitchen
+
+An app that allows you to track the contents of your home kitchen, to
+ultimately make more empowered decisions about your food consumption
 
 Tech used:
+
 - react native
 - expo
 - react navigation
 - firebase firestore
 - firebase authentication
 - react firebase hooks
+- css

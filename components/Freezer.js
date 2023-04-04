@@ -13,7 +13,13 @@ const Freezer = () => {
   const [data, loading, error] = useCollectionData(query)
 
   const addFreezerItem = async () => {
-    console.log("fridge item added -> ", newFreezerItem)
+    const payload = {
+      title: newFreezerItem,
+      quantity: 1,
+      expired: false,
+    }
+    await addDoc(query, payload)
+    setNewFreezerItem("")
   }
 
   return (

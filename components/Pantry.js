@@ -12,8 +12,14 @@ const Pantry = () => {
   const query = collection(db, `users/${userId}/pantryItems`)
   const [data, loading, error] = useCollectionData(query)
 
-  const addPantryItem = () => {
-    console.log("pantry item added -> ", newPantryItem)
+  const addPantryItem = async () => {
+    const payload = {
+      title: newPantryItem,
+      quantity: 1,
+      expired: false,
+    }
+    await addDoc(query, payload)
+    setNewPantryItem("")
   }
 
   return (

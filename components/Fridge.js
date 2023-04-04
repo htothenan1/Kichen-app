@@ -2,18 +2,24 @@ import { View, FlatList, TextInput, Button } from "react-native"
 import React, { useState } from "react"
 import ItemCard from "../common/components/ItemCard"
 import { db, auth } from "../firebase"
-import { collection } from "firebase/firestore"
+import { addDoc, collection } from "firebase/firestore"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import styles from "./styles/fridge"
 
 const Fridge = () => {
   const [newFridgeItem, setNewFridgeItem] = useState("")
   const userId = auth.currentUser.uid
-  const alternateQuery = collection(db, `users/${userId}/fridgeItems`)
-  const [data, loading, error] = useCollectionData(alternateQuery)
+  const query = collection(db, `users/${userId}/fridgeItems`)
+  const [data, loading, error] = useCollectionData(query)
 
   const addFridgeItem = async () => {
-    console.log("fridge item added")
+    const payload = {
+      title: newFridgeItem,
+      quantity: 1,
+      expired: false,
+    }
+    await addDoc(query, payload)
+    setNewFridgeItem("")
   }
 
   return (
