@@ -8,6 +8,7 @@ import ScanCam from "./components/ScanCam"
 import Fridge from "./components/Fridge"
 import Pantry from "./components/Pantry"
 import Freezer from "./components/Freezer"
+import AnimationTest from "./components/AnimationTest"
 
 const Stack = createNativeStackNavigator()
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Fridge" component={Fridge} />
         <Stack.Screen name="Pantry" component={Pantry} />
         <Stack.Screen name="Freezer" component={Freezer} />
+        <Stack.Screen name="AnimationTest" component={AnimationTest} />
       </Stack.Navigator>
     </NavigationContainer>
   )

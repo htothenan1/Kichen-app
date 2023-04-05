@@ -17,6 +17,10 @@ const Home = () => {
     navigation.navigate("ScanCam", { name: "ScanCam" })
   }
 
+  const navToAnimationTest = () => {
+    navigation.navigate("AnimationTest", { name: "AnimationTest" })
+  }
+
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -35,6 +39,7 @@ const Home = () => {
         >{`Kichen of ${auth.currentUser.email} `}</Text>
         <NavButton text={"Check your stock"} onPress={navToKitchen} />
         <NavButton text={"Scan an Item"} onPress={navToScanCam} />
+        <NavButton text={"Go to Animations"} onPress={navToAnimationTest} />
         <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>

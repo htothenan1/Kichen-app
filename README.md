@@ -3,7 +3,7 @@
 An app that allows you to track the contents of your home kitchen, to
 ultimately make more empowered decisions about your food consumption
 
-Tech used:
+libraries/frameworks used:
 
 - react native
 - expo
@@ -11,4 +11,3 @@ Tech used:
 - firebase firestore
 - firebase authentication
 - react firebase hooks
-- css

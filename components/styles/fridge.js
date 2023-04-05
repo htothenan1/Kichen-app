@@ -5,24 +5,22 @@ export default StyleSheet.create({
     flex: 1,
   },
   listContainer: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   textInputContainer: {
     marginVertical: 50,
-    marginLeft: 20,
-    marginRight: 20,
+    marginHorizontal: 50,
     borderRadius: 10,
     borderColor: "black",
     borderWidth: 1,
-    justifyContent: "flex-end",
   },
   textInput: {
+    textAlign: "center",
     borderWidth: 1,
     borderRadius: 5,
     height: 30,
     margin: 10,
-    backgroundColor: "pink",
+    backgroundColor: "#ef476f",
   },
 })

@@ -7,6 +7,8 @@ import { useCollectionData } from "react-firebase-hooks/firestore"
 import styles from "./styles/fridge"
 
 const Fridge = () => {
+  const [newItemTitle, setNewItemTitle] = useState("")
+  const [newItemQuantity, setNewItemQuantity] = useState(1)
   const [newFridgeItem, setNewFridgeItem] = useState("")
   const userId = auth.currentUser.uid
   const query = collection(db, `users/${userId}/fridgeItems`)
@@ -14,8 +16,8 @@ const Fridge = () => {
 
   const addFridgeItem = async () => {
     const payload = {
-      title: newFridgeItem,
-      quantity: 1,
+      title: newItemTitle,
+      quantity: newItemQuantity,
       expired: false,
     }
     await addDoc(query, payload)
@@ -38,15 +40,26 @@ const Fridge = () => {
       </View>
       <View style={styles.textInputContainer}>
         <TextInput
+          placeholder="enter title"
+          placeholderTextColor={"white"}
           style={styles.textInput}
-          value={newFridgeItem}
-          onChangeText={(text) => setNewFridgeItem(text)}
+          value={newItemTitle}
+          onChangeText={(text) => setNewItemTitle(text)}
+        />
+        <TextInput
+          placeholder="enter quantity"
+          placeholderTextColor={"white"}
+          style={styles.textInput}
+          keyboardType="numeric"
+          onChangeText={(quantity) => setNewItemQuantity(quantity)}
+          value={newItemQuantity}
+          maxLength={10}
         />
         <Button
           onPress={addFridgeItem}
-          title="Add Fridge Item"
+          title="Add Pantry Item"
           color="#841584"
-          accessibilityLabel="add fridge item"
+          accessibilityLabel="add pantry item"
         />
       </View>
     </View>

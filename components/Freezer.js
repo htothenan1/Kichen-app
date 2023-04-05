@@ -2,20 +2,21 @@ import { View, FlatList, TextInput, Button } from "react-native"
 import React, { useState } from "react"
 import ItemCard from "../common/components/ItemCard"
 import { db, auth } from "../firebase"
-import { collection } from "firebase/firestore"
+import { addDoc, collection } from "firebase/firestore"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import styles from "./styles/fridge"
 
 const Freezer = () => {
-  const [newFreezerItem, setNewFreezerItem] = useState("")
+  const [newItemTitle, setNewItemTitle] = useState("")
+  const [newItemQuantity, setNewItemQuantity] = useState(1)
   const userId = auth.currentUser.uid
   const query = collection(db, `users/${userId}/freezerItems`)
   const [data, loading, error] = useCollectionData(query)
 
   const addFreezerItem = async () => {
     const payload = {
-      title: newFreezerItem,
-      quantity: 1,
+      title: newItemTitle,
+      quantity: newItemQuantity,
       expired: false,
     }
     await addDoc(query, payload)
@@ -38,15 +39,26 @@ const Freezer = () => {
       </View>
       <View style={styles.textInputContainer}>
         <TextInput
+          placeholder="enter title"
+          placeholderTextColor={"white"}
           style={styles.textInput}
-          value={newFreezerItem}
-          onChangeText={(text) => setNewFreezerItem(text)}
+          value={newItemTitle}
+          onChangeText={(text) => setNewItemTitle(text)}
+        />
+        <TextInput
+          placeholder="enter quantity"
+          placeholderTextColor={"white"}
+          style={styles.textInput}
+          keyboardType="numeric"
+          onChangeText={(quantity) => setNewItemQuantity(quantity)}
+          value={newItemQuantity}
+          maxLength={10}
         />
         <Button
           onPress={addFreezerItem}
-          title="Add Freezer Item"
+          title="Add Pantry Item"
           color="#841584"
-          accessibilityLabel="add freezer item"
+          accessibilityLabel="add pantry item"
         />
       </View>
     </View>

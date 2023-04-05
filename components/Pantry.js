@@ -2,24 +2,26 @@ import { View, FlatList, TextInput, Button } from "react-native"
 import React, { useState } from "react"
 import ItemCard from "../common/components/ItemCard"
 import { db, auth } from "../firebase"
-import { collection } from "firebase/firestore"
+import { addDoc, collection } from "firebase/firestore"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import styles from "./styles/fridge"
 
 const Pantry = () => {
-  const [newPantryItem, setNewPantryItem] = useState("")
+  const [newItemTitle, setNewItemTitle] = useState("")
+  const [newItemQuantity, setNewItemQuantity] = useState(1)
   const userId = auth.currentUser.uid
   const query = collection(db, `users/${userId}/pantryItems`)
   const [data, loading, error] = useCollectionData(query)
 
   const addPantryItem = async () => {
     const payload = {
-      title: newPantryItem,
-      quantity: 1,
+      title: newItemTitle,
+      quantity: newItemQuantity,
       expired: false,
     }
     await addDoc(query, payload)
-    setNewPantryItem("")
+    setNewItemTitle("")
+    setNewItemQuantity(1)
   }
 
   return (
@@ -38,9 +40,20 @@ const Pantry = () => {
       </View>
       <View style={styles.textInputContainer}>
         <TextInput
+          placeholder="enter title"
+          placeholderTextColor={"white"}
           style={styles.textInput}
-          value={newPantryItem}
-          onChangeText={(text) => setNewPantryItem(text)}
+          value={newItemTitle}
+          onChangeText={(text) => setNewItemTitle(text)}
+        />
+        <TextInput
+          placeholder="enter quantity"
+          placeholderTextColor={"white"}
+          style={styles.textInput}
+          keyboardType="numeric"
+          onChangeText={(quantity) => setNewItemQuantity(quantity)}
+          value={newItemQuantity}
+          maxLength={10}
         />
         <Button
           onPress={addPantryItem}
