@@ -1,4 +1,5 @@
 import {
+  Button,
   KeyboardAvoidingView,
   Text,
   TouchableWithoutFeedback,
@@ -7,9 +8,9 @@ import {
 import React, { useState } from "react"
 import styles from "./styles/itemCard"
 
-const ItemCard = ({ title, quantity, expired }) => {
+const ItemCard = ({ title, quantity, expired, handleDelete }) => {
   const [open, setOpen] = useState(false)
-  const height = open ? "auto" : 36
+  const height = open ? "auto" : 38
   // const bottomRadius = open ? 0 : 8
 
   return (
@@ -27,6 +28,12 @@ const ItemCard = ({ title, quantity, expired }) => {
       <Text style={styles.text}>
         {`Expired: ${expired ? "YES!" : "Not Yet"}`}
       </Text>
+      <Button
+        onPress={handleDelete}
+        title="Delete Item"
+        color="#841584"
+        accessibilityLabel="delete item"
+      />
     </KeyboardAvoidingView>
     // <TouchableWithoutFeedback onPress={() => setOpen((prev) => !prev)}>
     //   <View

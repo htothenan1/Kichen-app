@@ -4,6 +4,7 @@ import {
 } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import { db, auth } from "../../firebase"
+import uuid from "react-native-uuid"
 
 export const handleLogin = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
@@ -25,10 +26,17 @@ export const handleSignUp = (email, password) => {
     .catch((error) => alert(error.message))
 }
 
+export const createId = () => {
+  return uuid.v4().split("-")[0]
+}
+
 const createUserDb = async (userId, userEmail) => {
   const docRef = doc(db, "users", userId)
   await setDoc(docRef, {
+    id: userId,
     email: userEmail,
+    firstName: "",
+    lastName: "",
   })
   createFridge(userId)
   createFreezer(userId)
@@ -37,27 +45,33 @@ const createUserDb = async (userId, userEmail) => {
 }
 
 const createFridge = async (userId) => {
-  const docRef = doc(db, `users/${userId}/fridgeItems`, "firstFridgeItem")
+  const docId = createId()
+  const docRef = doc(db, `users/${userId}/fridgeItems`, docId)
   await setDoc(docRef, {
-    title: "first fridge item",
+    id: docId,
+    title: "Welcome!",
     quantity: 1,
     expired: false,
   })
 }
 
 const createFreezer = async (userId) => {
-  const docRef = doc(db, `users/${userId}/freezerItems`, "firstFreezerItem")
+  const docId = createId()
+  const docRef = doc(db, `users/${userId}/freezerItems`, docId)
   await setDoc(docRef, {
-    title: "first freezer item",
+    id: docId,
+    title: "Welcome!",
     quantity: 1,
     expired: false,
   })
 }
 
 const createPantry = async (userId) => {
-  const docRef = doc(db, `users/${userId}/pantryItems`, "firstPantryItem")
+  const docId = createId()
+  const docRef = doc(db, `users/${userId}/pantryItems`, docId)
   await setDoc(docRef, {
-    title: "first pantry item",
+    id: docId,
+    title: "Welcome!",
     quantity: 1,
     expired: false,
   })

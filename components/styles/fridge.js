@@ -22,5 +22,7 @@ export default StyleSheet.create({
     height: 30,
     margin: 10,
     backgroundColor: "#ef476f",
+    fontSize: 20,
+    color: "white",
   },
 })
