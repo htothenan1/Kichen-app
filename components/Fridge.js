@@ -1,12 +1,13 @@
 import { View, FlatList } from "react-native"
 import React, { useState } from "react"
 import ItemCard from "../common/components/ItemCard"
+import AddItemCard from "../common/components/AddItemCard"
 import { Button, TextInput } from "react-native-paper"
 import { SelectList } from "react-native-dropdown-select-list"
 import { db, auth } from "../firebase"
 import { collection, deleteDoc, doc, setDoc } from "firebase/firestore"
 import { useCollectionData } from "react-firebase-hooks/firestore"
-import { createId, unitOptions } from "./helpers/handyFuncs"
+import { createId } from "./helpers/handyFuncs"
 import styles from "./styles/fridge"
 
 const Fridge = () => {
@@ -38,39 +39,14 @@ const Fridge = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.textInputContainer}>
-        <TextInput
-          label="What are you adding?"
-          mode="outlined"
-          value={newItemTitle}
-          onChangeText={(text) => setNewItemTitle(text)}
-        />
-        <TextInput
-          label="How many?"
-          mode="outlined"
-          keyboardType="number-pad"
-          onChangeText={(quantity) => setNewItemQuantity(quantity)}
-          value={newItemQuantity}
-        />
-        <SelectList
-          searchPlaceholder="Choose the unit"
-          setSelected={(unit) => setNewItemUnit(unit)}
-          data={unitOptions}
-          save="value"
-        />
-        <View style={styles.buttonContainer}>
-          <Button
-            uppercase
-            style={styles.addItemButton}
-            textColor={"#000"}
-            mode="outlined"
-            icon={"plus"}
-            onPress={addFridgeItem}
-          >
-            Add Item
-          </Button>
-        </View>
-      </View>
+      <AddItemCard
+        newItemTitle={newItemTitle}
+        setNewItemTitle={setNewItemTitle}
+        newItemQuantity={newItemQuantity}
+        setNewItemQuantity={setNewItemQuantity}
+        setNewItemUnit={setNewItemUnit}
+        addFridgeItem={addFridgeItem}
+      />
       <FlatList
         renderItem={({ item }) => (
           <ItemCard

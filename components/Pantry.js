@@ -8,6 +8,7 @@ import { collection, deleteDoc, doc, setDoc } from "firebase/firestore"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { createId, unitOptions } from "./helpers/handyFuncs"
 import styles from "./styles/fridge"
+import AddItemCard from "../common/components/AddItemCard"
 
 const Pantry = () => {
   const [newItemUnit, setNewItemUnit] = useState("")
@@ -38,7 +39,15 @@ const Pantry = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.textInputContainer}>
+      <AddItemCard
+        newItemTitle={newItemTitle}
+        setNewItemTitle={setNewItemTitle}
+        newItemQuantity={newItemQuantity}
+        setNewItemQuantity={setNewItemQuantity}
+        setNewItemUnit={setNewItemUnit}
+        addFridgeItem={addPantryItem}
+      />
+      {/* <View style={styles.textInputContainer}>
         <TextInput
           label="What are you adding?"
           mode="outlined"
@@ -69,7 +78,7 @@ const Pantry = () => {
             Add Item
           </Button>
         </View>
-      </View>
+      </View> */}
       <FlatList
         renderItem={({ item }) => (
           <ItemCard

@@ -12,14 +12,9 @@ export default StyleSheet.create({
   },
   titleText: {
     fontSize: 40,
-    marginBottom: 20,
     textAlign: "center",
-  },
-  button: {
-    marginBottom: 20,
-    justifyContent: "center",
-  },
-  buttonText: {
-    fontSize: 18,
+    marginVertical: 25,
+    color: "#3d405b",
+    fontFamily: "Arial Rounded MT Bold",
   },
 })

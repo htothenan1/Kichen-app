@@ -1,49 +1,33 @@
 import { useNavigation } from "@react-navigation/core"
 import React from "react"
-import { View, Text } from "react-native"
-import { Button } from "react-native-paper"
+import { View } from "react-native"
+import ButtonWithIcon from "../common/components/ButtonWithIcon"
 import styles from "./styles/kichen"
 
 const Kichen = () => {
   const navigation = useNavigation()
-  const navToFridge = () => {
-    navigation.navigate("Fridge", { name: "Fridge" })
+
+  const handleNav = (screen) => {
+    navigation.navigate(screen, { name: screen })
   }
-  const navToFreezer = () => {
-    navigation.navigate("Freezer", { name: "Freezer" })
-  }
-  const navToPantry = () => {
-    navigation.navigate("Pantry", { name: "Pantry" })
-  }
+
   return (
     <View style={styles.container}>
-      <Button
-        style={styles.button}
-        textColor={"#000"}
-        mode="elevated"
-        icon={"fridge-bottom"}
-        onPress={navToFreezer}
-      >
-        <Text style={styles.buttonText}>{"Freezer"}</Text>
-      </Button>
-      <Button
-        style={styles.button}
-        textColor={"#000"}
-        mode="elevated"
+      <ButtonWithIcon
+        onPress={() => handleNav("Fridge")}
         icon={"fridge-top"}
-        onPress={navToFridge}
-      >
-        <Text style={styles.buttonText}>{"Fridge"}</Text>
-      </Button>
-      <Button
-        style={styles.button}
-        textColor={"#000"}
-        mode="elevated"
+        buttonText={"Fridge"}
+      />
+      <ButtonWithIcon
+        onPress={() => handleNav("Freezer")}
+        icon={"fridge-bottom"}
+        buttonText={"Freezer"}
+      />
+      <ButtonWithIcon
+        onPress={() => handleNav("Pantry")}
         icon={"fridge-off"}
-        onPress={navToPantry}
-      >
-        <Text style={styles.buttonText}>{"Pantry"}</Text>
-      </Button>
+        buttonText={"Pantry"}
+      />
     </View>
   )
 }
