@@ -1,8 +1,7 @@
 import { useNavigation } from "@react-navigation/core"
 import React from "react"
-import { View } from "react-native"
+import { View, Text } from "react-native"
 import { Button } from "react-native-paper"
-import NavButton from "../common/components/NavButton"
 import styles from "./styles/kichen"
 
 const Kichen = () => {
@@ -19,38 +18,32 @@ const Kichen = () => {
   return (
     <View style={styles.container}>
       <Button
-        uppercase
-        style={{ marginVertical: 10 }}
+        style={styles.button}
         textColor={"#000"}
         mode="elevated"
         icon={"fridge-bottom"}
         onPress={navToFreezer}
       >
-        {"Freezer"}
+        <Text style={styles.buttonText}>{"Freezer"}</Text>
       </Button>
       <Button
-        uppercase
-        style={{ marginVertical: 10 }}
+        style={styles.button}
         textColor={"#000"}
         mode="elevated"
         icon={"fridge-top"}
         onPress={navToFridge}
       >
-        {"Fridge"}
+        <Text style={styles.buttonText}>{"Fridge"}</Text>
       </Button>
       <Button
-        uppercase
-        style={{ marginVertical: 10 }}
+        style={styles.button}
         textColor={"#000"}
         mode="elevated"
         icon={"fridge-off"}
         onPress={navToPantry}
       >
-        {"Pantry"}
+        <Text style={styles.buttonText}>{"Pantry"}</Text>
       </Button>
-      {/* <NavButton text={"Fridge"} onPress={navToFridge} />
-      <NavButton text={"Freezer"} onPress={navToFreezer} />
-      <NavButton text={"Pantry"} onPress={navToPantry} /> */}
     </View>
   )
 }

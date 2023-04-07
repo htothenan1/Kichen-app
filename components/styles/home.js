@@ -16,13 +16,10 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    borderWidth: 1,
-    marginVertical: 4,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
-    borderRadius: 3,
+    marginBottom: 20,
+    justifyContent: "center",
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 18,
   },
 })

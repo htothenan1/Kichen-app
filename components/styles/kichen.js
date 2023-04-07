@@ -7,4 +7,11 @@ export default StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#edede9",
   },
+  button: {
+    marginBottom: 20,
+    justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 18,
+  },
 })

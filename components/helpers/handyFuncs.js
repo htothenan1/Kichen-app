@@ -49,9 +49,9 @@ const createFridge = async (userId) => {
   const docRef = doc(db, `users/${userId}/fridgeItems`, docId)
   await setDoc(docRef, {
     id: docId,
-    title: "Welcome!",
+    title: "Humility",
     quantity: 1,
-    expired: false,
+    unit: "unit",
   })
 }
 
@@ -60,9 +60,9 @@ const createFreezer = async (userId) => {
   const docRef = doc(db, `users/${userId}/freezerItems`, docId)
   await setDoc(docRef, {
     id: docId,
-    title: "Welcome!",
+    title: "Gratitude",
     quantity: 1,
-    expired: false,
+    unit: "unit",
   })
 }
 
@@ -71,8 +71,30 @@ const createPantry = async (userId) => {
   const docRef = doc(db, `users/${userId}/pantryItems`, docId)
   await setDoc(docRef, {
     id: docId,
-    title: "Welcome!",
+    title: "Happiness",
     quantity: 1,
-    expired: false,
+    unit: "unit",
   })
 }
+
+export const unitOptions = [
+  { key: "2", value: "unit" },
+  { key: "3", value: "pound" },
+  { key: "4", value: "bag" },
+  { key: "5", value: "ounce" },
+  { key: "6", value: "piece" },
+  { key: "7", value: "box" },
+  { key: "8", value: "package" },
+  { key: "9", value: "gallon" },
+  { key: "10", value: "cup" },
+  { key: "11", value: "quart" },
+  { key: "12", value: "pint" },
+  { key: "13", value: "carton" },
+  { key: "14", value: "jar" },
+  { key: "15", value: "bottle" },
+  { key: "16", value: "can" },
+  { key: "17", value: "bunch" },
+  { key: "18", value: "jug" },
+  { key: "19", value: "roll" },
+  { key: "20", value: "loaf" },
+]

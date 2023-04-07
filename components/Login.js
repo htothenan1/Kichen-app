@@ -10,7 +10,7 @@ import {
 import { auth } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import styles from "./styles/login"
-import { handleSignUp, handleLogin } from "./helpers/loginFuncs"
+import { handleSignUp, handleLogin } from "./helpers/handyFuncs"
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("")

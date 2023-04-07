@@ -1,18 +1,21 @@
-import { View, FlatList, TextInput, Button } from "react-native"
+import { View, FlatList } from "react-native"
 import React, { useState } from "react"
 import ItemCard from "../common/components/ItemCard"
+import { Button, TextInput } from "react-native-paper"
+import { SelectList } from "react-native-dropdown-select-list"
 import { db, auth } from "../firebase"
-import { collection, deleteDoc } from "firebase/firestore"
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore"
 import { useCollectionData } from "react-firebase-hooks/firestore"
-import { createId } from "./helpers/loginFuncs"
+import { createId, unitOptions } from "./helpers/handyFuncs"
 import styles from "./styles/fridge"
 
 const Pantry = () => {
+  const [newItemUnit, setNewItemUnit] = useState("")
   const [newItemTitle, setNewItemTitle] = useState("")
-  const [newItemQuantity, setNewItemQuantity] = useState(1)
+  const [newItemQuantity, setNewItemQuantity] = useState(null)
   const userId = auth.currentUser.uid
   const query = collection(db, `users/${userId}/pantryItems`)
-  const [data, loading, error] = useCollectionData(query)
+  const [data] = useCollectionData(query)
 
   const addPantryItem = async () => {
     const itemId = createId()
@@ -20,12 +23,13 @@ const Pantry = () => {
       id: itemId,
       title: newItemTitle,
       quantity: newItemQuantity,
-      expired: false,
+      unit: newItemUnit,
     }
     await setDoc(doc(db, `users/${userId}/pantryItems`, itemId), payload)
 
     setNewItemTitle("")
-    setNewItemQuantity(1)
+    setNewItemUnit("")
+    setNewItemQuantity(null)
   }
 
   const deletePantryItem = async (id) => {
@@ -36,41 +40,47 @@ const Pantry = () => {
     <View style={styles.container}>
       <View style={styles.textInputContainer}>
         <TextInput
-          placeholder="enter title"
-          placeholderTextColor={"white"}
-          style={styles.textInput}
+          label="What are you adding?"
+          mode="outlined"
           value={newItemTitle}
           onChangeText={(text) => setNewItemTitle(text)}
         />
         <TextInput
-          placeholder="enter quantity"
-          placeholderTextColor={"white"}
-          style={styles.textInput}
-          keyboardType="numeric"
+          label="How many?"
+          mode="outlined"
           onChangeText={(quantity) => setNewItemQuantity(quantity)}
           value={newItemQuantity}
-          maxLength={10}
         />
-        <Button
-          onPress={addPantryItem}
-          title="Add Pantry Item"
-          color="#841584"
-          accessibilityLabel="add pantry item"
+        <SelectList
+          searchPlaceholder="Choose the unit"
+          setSelected={(unit) => setNewItemUnit(unit)}
+          data={unitOptions}
+          save="value"
         />
+        <View style={styles.buttonContainer}>
+          <Button
+            uppercase
+            style={styles.addItemButton}
+            textColor={"#000"}
+            mode="outlined"
+            icon={"plus"}
+            onPress={addPantryItem}
+          >
+            Add Item
+          </Button>
+        </View>
       </View>
-      <View style={styles.listContainer}>
-        <FlatList
-          renderItem={({ item }) => (
-            <ItemCard
-              title={item.title}
-              quantity={item.quantity}
-              expired={item.expired}
-              handleDelete={() => deletePantryItem(item.id)}
-            />
-          )}
-          data={data}
-        />
-      </View>
+      <FlatList
+        renderItem={({ item }) => (
+          <ItemCard
+            title={item.title}
+            quantity={item.quantity}
+            unit={item.unit}
+            handleDelete={() => deletePantryItem(item.id)}
+          />
+        )}
+        data={data}
+      />
     </View>
   )
 }

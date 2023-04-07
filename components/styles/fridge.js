@@ -4,25 +4,24 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
-  listContainer: {
+  textInputContainer: {
+    padding: 15,
+    backgroundColor: "white",
+    borderWidth: 1,
+    margin: 8,
+    marginHorizontal: 15,
+    borderRadius: 10,
+    borderColor: "#dad7cd",
+  },
+  buttonContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
-  textInputContainer: {
-    marginVertical: 50,
-    marginHorizontal: 50,
-    borderRadius: 10,
-    borderColor: "black",
-    borderWidth: 1,
-  },
-  textInput: {
-    textAlign: "center",
-    borderWidth: 1,
-    borderRadius: 5,
-    height: 30,
-    margin: 10,
-    backgroundColor: "#ef476f",
-    fontSize: 20,
-    color: "white",
+  addItemButton: {
+    marginTop: 10,
+    marginHorizontal: 10,
+    width: "40%",
+    margin: "auto",
+    backgroundColor: "#edede9",
   },
 })
