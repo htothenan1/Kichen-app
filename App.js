@@ -9,6 +9,7 @@ import Fridge from "./components/Fridge"
 import Pantry from "./components/Pantry"
 import Freezer from "./components/Freezer"
 import EditProfile from "./components/EditProfile"
+import EditFridgeItem from "./components/EditFridgeItem"
 
 const Stack = createNativeStackNavigator()
 
@@ -28,6 +29,7 @@ export default function App() {
           <Stack.Screen name="Pantry" component={Pantry} />
           <Stack.Screen name="Freezer" component={Freezer} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen name="EditFridgeItem" component={EditFridgeItem} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

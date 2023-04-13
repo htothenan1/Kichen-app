@@ -2,9 +2,10 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"
+import { doc, setDoc, Timestamp } from "firebase/firestore"
 import { db, auth } from "../../firebase"
 import uuid from "react-native-uuid"
+import dayjs from "dayjs"
 
 export const handleLogin = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
@@ -30,6 +31,8 @@ export const createId = () => {
   return uuid.v4().split("-")[0]
 }
 
+export const oneWeeklater = dayjs().add(7, "day")
+
 const createUserDb = async (userId, userEmail) => {
   const docRef = doc(db, "users", userId)
   await setDoc(docRef, {
@@ -52,6 +55,7 @@ const createFridge = async (userId) => {
     title: "Humility",
     quantity: 1,
     unit: "unit",
+    useByDate: Timestamp.fromDate(new Date(oneWeeklater)),
   })
 }
 
@@ -63,6 +67,7 @@ const createFreezer = async (userId) => {
     title: "Gratitude",
     quantity: 1,
     unit: "unit",
+    useByDate: Timestamp.fromDate(new Date(oneWeeklater)),
   })
 }
 
@@ -74,6 +79,7 @@ const createPantry = async (userId) => {
     title: "Happiness",
     quantity: 1,
     unit: "unit",
+    useByDate: Timestamp.fromDate(new Date(oneWeeklater)),
   })
 }
 

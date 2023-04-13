@@ -20,7 +20,12 @@ export default StyleSheet.create({
   text: {
     fontFamily: "Arial Rounded MT Bold",
     paddingHorizontal: 10,
+    paddingVertical: 5,
     fontSize: 18,
+  },
+  updateButton: {
+    margin: 5,
+    color: "blue",
   },
   deleteButton: {
     margin: 5,

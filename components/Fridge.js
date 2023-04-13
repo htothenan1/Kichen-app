@@ -2,12 +2,17 @@ import { View, FlatList } from "react-native"
 import React, { useState } from "react"
 import ItemCard from "../common/components/ItemCard"
 import AddItemCard from "../common/components/AddItemCard"
-import { Button, TextInput } from "react-native-paper"
-import { SelectList } from "react-native-dropdown-select-list"
 import { db, auth } from "../firebase"
-import { collection, deleteDoc, doc, setDoc } from "firebase/firestore"
+import {
+  collection,
+  deleteDoc,
+  doc,
+  setDoc,
+  Timestamp,
+} from "firebase/firestore"
 import { useCollectionData } from "react-firebase-hooks/firestore"
-import { createId } from "./helpers/handyFuncs"
+import dayjs from "dayjs"
+import { createId, oneWeeklater } from "./helpers/handyFuncs"
 import styles from "./styles/fridge"
 
 const Fridge = () => {
@@ -20,17 +25,22 @@ const Fridge = () => {
 
   const addFridgeItem = async () => {
     const itemId = createId()
+    // const inOneWeek = Timestamp.fromDate(new Date()).seconds * 1000
+    // const todayTimestamp = new Date(timestamp)
+    // const oneWeekAhead = todayTimestamp.setDate(todayTimestamp.getDate() + 7)
     const payload = {
       id: itemId,
       title: newItemTitle,
       quantity: newItemQuantity,
       unit: newItemUnit,
+      useByDate: Timestamp.fromDate(new Date(oneWeeklater)),
     }
     await setDoc(doc(db, `users/${userId}/fridgeItems`, itemId), payload)
 
     setNewItemTitle("")
     setNewItemUnit("")
     setNewItemQuantity(null)
+    console.log(now.seconds * 1000)
   }
 
   const deleteFridgeItem = async (id) => {
@@ -50,9 +60,11 @@ const Fridge = () => {
       <FlatList
         renderItem={({ item }) => (
           <ItemCard
+            id={item.id}
             title={item.title}
             quantity={item.quantity}
             unit={item.unit}
+            useByDate={item.useByDate}
             handleDelete={() => deleteFridgeItem(item.id)}
           />
         )}
